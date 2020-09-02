@@ -10,12 +10,8 @@
  * @param config      FillerConfig struct to setup the fill
  * @return animation  object illustrating progression of flood fill algorithm
  */
-animation filler::fillBFS(FillerConfig &config)
-{
-    /**
-     * @todo Your code here! You should replace the following line with a
-     * correct call to fill.
-     */
+animation filler::fillBFS(FillerConfig &config){
+    return fill<Queue>(config);
 }
 
 /**
@@ -24,12 +20,8 @@ animation filler::fillBFS(FillerConfig &config)
  * @param config      FillerConfig struct to setup the fill
  * @return animation  object illustrating progression of flood fill algorithm
  */
-animation filler::fillDFS(FillerConfig &config)
-{
-    /**
-     * @todo Your code here! You should replace the following line with a
-     * correct call to fill.
-     */
+animation filler::fillDFS(FillerConfig &config){
+     return fill<Stack>(config);
 }
 
 /**
@@ -106,4 +98,57 @@ template <template <class T> class OrderingStructure> animation filler::fill(Fil
      *        it will be the one we test against.
      *
      */
+
+
+    OrderingStructure<point> orderingStructure;
+    animation animation;
+     
+     int count= 0;
+     int width = config.img.width();
+     int height= config.img.height();
+     int direction[4][2]={{-1,0},{0,1},{1,0},{0,-1}};
+     bool visited[width][height];
+     animation.addFrame(config.img);
+
+     //set every pixel to false
+     for(int i = 0;i < width; i++){
+      for(int j=0;j<height;j++){
+        visited[i][j]=false;
+      }
+    }
+
+    for (int i=0; i< (config.centers.size()); i++) {
+    center c = config.centers[i];
+    point p = point(c);
+    if (c.x<width && c.y<height && !visited[c.x][c.y]) {
+      orderingStructure.add(p);
+      count++;
+      visited[c.x][c.y] = true;
+      *(config.img.getPixel(p.x, p.y)) = (*config.pickers[i])(p);
+
+      if (count % config.frameFreq == 0) 
+          animation.addFrame(config.img);
+
+      while(!orderingStructure.isEmpty()) {
+        point curr = orderingStructure.remove();
+        for (int j=0; j< 4; j++) {
+        point curr_ = curr;
+        curr_.x= curr.x + direction[j][0];
+        curr_.y= curr.y + direction[j][1];
+        if (curr_.x < ((unsigned int) width) && curr_.y < ((unsigned int) height) && !visited[curr_.x][curr_.y]) {
+                if (config.img.getPixel(curr_.x, curr_.y)->dist(c.color) <= config.tolerance) {
+                orderingStructure.add(curr_);
+                count++;
+                visited[curr_.x][curr_.y] = true;
+               *(config.img.getPixel(curr_.x, curr_.y)) = (*config.pickers[i])(curr_);
+                if (count % config.frameFreq == 0) 
+                    animation.addFrame(config.img);
+            }
+        }
+    }
+}
+}
+}
+    animation.addFrame(config.img);
+    return animation;
 }

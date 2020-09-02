@@ -1,3 +1,4 @@
+#include "queue.h"
 /**
  * @file queue.cpp
  * Implementation of the Queue class.
@@ -9,11 +10,8 @@
  *
  * @param newItem object to be added to the Queue.
  */
-template <class T> void Queue<T>::enqueue(T const &newItem)
-{
-    /**
-     * @todo Your code here!
-     */
+template <class T> void Queue<T>::enqueue(T const &newItem){
+    stack_1.push(newItem);
 }
 
 /**
@@ -22,11 +20,13 @@ template <class T> void Queue<T>::enqueue(T const &newItem)
  *
  * @return The item that used to be at the front of the Queue.
  */
-template <class T> T Queue<T>::dequeue()
-{
-    /**
-     * @todo Your code here! You will need to replace the following line.
-     */
+template <class T> T Queue<T>::dequeue(){
+    if(stack_2.isEmpty()){
+        while(!stack_1.isEmpty()){
+            stack_2.push(stack_1.pop());
+        }
+    }
+    return stack_2.pop();
 }
 
 /**
@@ -34,12 +34,8 @@ template <class T> T Queue<T>::dequeue()
  *
  * @see OrderingStructure::add()
  */
-template <class T> void Queue<T>::add(const T &theItem)
-{
-    /**
-     * @todo Your code here! Hint: this function should call a Queue
-     *  function to add the element to the Queue.
-     */
+template <class T> void Queue<T>::add(const T &theItem){
+    enqueue(theItem);
 }
 
 /**
@@ -47,13 +43,8 @@ template <class T> void Queue<T>::add(const T &theItem)
  *
  * @see OrderingStructure::remove()
  */
-template <class T> T Queue<T>::remove()
-{
-    /**
-     * @todo Your code here! Hint: this function should call a Queue
-     *  function to remove an element from the Queue and return it. You will
-     *  need to replace the following line.
-     */
+template <class T> T Queue<T>::remove(){
+    return dequeue();
 }
 
 /**
@@ -62,11 +53,13 @@ template <class T> T Queue<T>::remove()
  *
  * @return The item at the front of the queue.
  */
-template <class T> T Queue<T>::peek()
-{
-    /**
-     * @todo Your code here! You will need to replace the following line.
-     */
+template <class T> T Queue<T>::peek(){
+    if(stack_2.isEmpty()){
+        while(!stack_1.isEmpty()){
+            stack_2.push(stack_1.pop());
+        }
+    }
+    return stack_2.peek();
 }
 
 /**
@@ -74,9 +67,6 @@ template <class T> T Queue<T>::peek()
  *
  * @return bool which is true if the Queue is empty, false otherwise.
  */
-template <class T> bool Queue<T>::isEmpty() const
-{
-    /**
-     * @todo Your code here! You will need to replace the following line.
-     */
+template <class T> bool Queue<T>::isEmpty() const{
+    return stack_1.isEmpty() && stack_2.isEmpty();
 }

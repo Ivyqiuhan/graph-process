@@ -50,6 +50,8 @@ class borderColorPicker : public colorPicker
     virtual HSLAPixel operator()(point);
 
   private:
+    bool IsWithinBorder(point p);
+
     unsigned int borderSize; // Number of pixels to use for border
     HSLAPixel fillColor;     // Color used for the border
     PNG img;                 // Image used in flood fill algorithm

@@ -42,6 +42,7 @@ class GridList {
     void Clear();
     void Copy(const GridList& otherlist);
     bool IsEdgeCondition(int op1, int op2, int op3, int op4);
+    void ResetList(GridList& theList);
 
   public:
 

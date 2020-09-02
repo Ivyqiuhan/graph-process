@@ -10,6 +10,12 @@
 #include "gridlist.h"
 #include "gridlist_given.cpp"
 
+
+// GridNode *GridList::CreateNode(GridNode *input){
+//   GridNode *curr = input;
+//   if()
+// }
+
 // Creates a PNG of appropriate pixel dimensions according to the GridList's structure
 //   and colours each pixel according the each GridNode's Block data.
 // The fully coloured PNG is returned.
@@ -56,10 +62,15 @@ void GridList::InsertBack(const Block& bdata){
 }
 
 bool GridList::IsEdgeCondition(int op1, int op2, int op3, int op4){
-  if ((op1 < 2) || (op2 < 1) || (op3 != op4)){
-    return true;
-  }
+  if ((op1 < 2) || (op2 < 1) || (op3 != op4)) return true;
   return false;
+}
+
+void GridList::ResetList(GridList& theList){
+  theList.dimx = 0;
+  theList.dimy = 0;
+  theList.southeast = NULL;
+  theList.northwest = NULL;
 }
 
 // if this list has an odd number of column blocks, then the right side will have more blocks
@@ -74,7 +85,7 @@ bool GridList::IsEdgeCondition(int op1, int op2, int op3, int op4){
 // DO NOT ALLOCATE OR DELETE ANY NODES IN THIS FUNCTION.
 void GridList::Sandwich_H(GridList& inner){
   
-  if(IsEdgeCondition(dimx, inner.dimx, dimy, inner.dimy)){return;}
+  if(IsEdgeCondition(dimx, inner.dimx, dimy, inner.dimy)) return;
 
   int currMid = dimx / 2 - 1;
   //make sure left < right
@@ -104,12 +115,7 @@ void GridList::Sandwich_H(GridList& inner){
     ++counter;
   }
   dimx += inner.dimx;
-  //increase dimx by 1
-  inner.dimx = 0;
-  inner.dimy = 0;
-  inner.southeast = NULL;
-  inner.northwest = NULL;
-  //delete inner linked list
+  ResetList(inner);
 }
 
 // inner list must have the same horizontal resolution, horizontal block dimension, and block size
@@ -125,7 +131,7 @@ void GridList::Sandwich_H(GridList& inner){
 // DO NOT ALLOCATE OR DELETE ANY NODES IN THIS FUNCTION.
 void GridList::Sandwich_V(GridList& inner)
 {
-  if(IsEdgeCondition(dimy, inner.dimy, dimx, inner.dimx)){return;}
+  if(IsEdgeCondition(dimy, inner.dimy, dimx, inner.dimx)) return;
 
   int currMid = dimy / 2 * dimx - 1;
   int counter = 0;
@@ -141,11 +147,9 @@ void GridList::Sandwich_V(GridList& inner)
     ++counter;
   }
   dimy += inner.dimy;
-  inner.dimx = 0;
-  inner.dimy = 0;
-  inner.southeast = NULL;
-  inner.northwest = NULL;
+  ResetList(inner);
 }
+
 
 
 // PRE:  this list and otherlist have the same pixel dimensions, block dimensions, and block size
@@ -153,14 +157,12 @@ void GridList::Sandwich_V(GridList& inner)
 //       each list's dimensions remain the same
 // THIS MUST BE ACHIEVED USING POINTER REASSIGNMENTS.
 // DO NOT ALLOCATE OR DELETE ANY NODES IN THIS FUNCTION.
-void GridList::CheckerSwap(GridList& otherlist)
-{
+void GridList::CheckerSwap(GridList& otherlist){
   int dimension = (northwest->data).Dimension();
   int counter = 0;
   GridNode *curr = northwest;
   GridNode *other = otherlist.northwest;
-  while (curr->next != NULL)
-  {
+  while (curr->next != NULL){
     curr = curr->next;
     other = other->next;
     counter++;
@@ -188,7 +190,6 @@ void GridList::CheckerSwap(GridList& otherlist)
 //       The northwest block is normal (does not have the negative effect applied).
 // Ensure that the checkering looks correct for both odd and even horizontal block dimensions
 void GridList::CheckerN(){
-  if (northwest != NULL){
     int counter = 0;
     GridNode *curr = northwest;
     while (curr->next != NULL){
@@ -200,7 +201,6 @@ void GridList::CheckerN(){
         curr->data.Negative();
       }
     }
-  }
 }
 
 // Deallocates any dynamic memory associated with this list

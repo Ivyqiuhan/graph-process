@@ -41,11 +41,7 @@ class GridList {
     // GridList private member functions
     void Clear();
     void Copy(const GridList& otherlist);
-
-    // YOU MAY ADD YOUR OWN PRIVATE MEMBER FUNCTION DEFINITIONS HERE
-    //
-    //
-    //
+    bool IsEdgeCondition(int op1, int op2, int op3, int op4);
 
   public:
 

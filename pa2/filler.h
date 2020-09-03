@@ -69,6 +69,7 @@ animation fillDFS(FillerConfig &config);
 template <template <class T> class OrderingStructure> animation fill(FillerConfig &config);
 
 // Add any helper functions here
+bool IsWithinBoundary(int xBound, int yBound, int x, int y, bool visited);
 
 } // namespace filler
 

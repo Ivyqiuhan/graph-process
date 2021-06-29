@@ -12,26 +12,35 @@
 
 ## Automated Imae with Flood Fill
 
-1.  With Border Color Picker - Using BFS Algorithm
-    ![alt text](./img/bfs_border.gif "Logo Title Text 1")
+1.  With Border Color Picker
 
-        - Using DFS Algorithm
+- Using BFS Algorithm
 
-    ![alt text](./img/dfs_border.gif "Logo Title Text 1")
+  ![alt text](./img/bfs_border.gif "Logo Title Text 1")
 
-2.  With Solid Color Picker - Using BFS Algorithm
-    ![alt text](./img/bfs_solid.gif "Logo Title Text 1")
+- Using DFS Algorithm
 
-        - Using DFS Algorithm
+  ![alt text](./img/dfs_border.gif "Logo Title Text 1")
 
-    ![alt text](./img/dfs_solid.gif "Logo Title Text 1")
+2.  With Solid Color Picker
 
-3.  With Fade Color Picker - Using BFS Algorithm
-    ![alt text](./img/bfs_fade.gif "Logo Title Text 1")
+- Using BFS Algorithm
 
-        - Using DFS Algorithm
+  ![alt text](./img/bfs_solid.gif "Logo Title Text 1")
 
-    ![alt text](./img/dfs_fade.gif "Logo Title Text 1")
+- Using DFS Algorithm
+
+  ![alt text](./img/dfs_solid.gif "Logo Title Text 1")
+
+3.  With Fade Color Picker
+
+- Using BFS Algorithm
+
+  ![alt text](./img/bfs_fade.gif "Logo Title Text 1")
+
+- Using DFS Algorithm
+
+  ![alt text](./img/dfs_fade.gif "Logo Title Text 1")
 
 ---
 

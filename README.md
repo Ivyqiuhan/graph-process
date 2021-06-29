@@ -51,6 +51,8 @@
 - The two images below illustrate the result of this assignment. Note that the second image sacrifices color detail in rectangles that do not contain much color variability in the original image, but maintains detail by using smaller rectangles in areas of the original image containing lots of variability.
 
 - Before
+
   ![alt text](./img/PA3pic1.png "Logo Title Text 1")
 - After
+
   ![alt text](./img/PA3pic2.png "Logo Title Text 1")
